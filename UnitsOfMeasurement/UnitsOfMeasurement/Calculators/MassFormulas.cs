@@ -26,6 +26,16 @@ namespace UnitsOfMeasurement.Calculators
             return valueToConvert / 35.2733686;
         }
 
+        public static double ConvertOuncesToPounds(double valueToConvert)
+        {
+            return valueToConvert / 16;
+        }
+
+        public static double ConvertOuncesToStones(double valueToConvert)
+        {
+            return valueToConvert / 223.9997849602064;
+        }
+
         public static double ConvertPoundsToKilograms(double valueToConvert)
         {
             return valueToConvert / 2.20462262;

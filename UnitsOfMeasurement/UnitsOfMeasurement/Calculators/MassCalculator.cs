@@ -11,13 +11,96 @@ namespace UnitsOfMeasurement.Calculators
         public double Calculate(IUnit from, IUnit to)
         {
             if (from.GetType().IsAssignableFrom(typeof(Kilogram)))
-            {
                 return ConvertKilograms(from, to);
-            }
 
             if (from.GetType().IsAssignableFrom(typeof(Gram)))
-            {
                 return ConvertGrams(from, to);
+
+            if (from.GetType().IsAssignableFrom(typeof(Milligram)))
+                return ConvertMilligrams(from, to);
+
+            if (from.GetType().IsAssignableFrom(typeof(Ounce)))
+                return ConvertOunces(from, to);
+
+            throw new InvalidOperationException();
+        }
+
+        private double ConvertOunces(IUnit from, IUnit to)
+        {
+            if (to.GetType().IsAssignableFrom(typeof(Milligram)))
+            {
+                to.Value = MassFormulas.ConvertOuncesToKilograms(from.Value) * 1000000;
+                return to.Value;
+            }
+
+            if (to.GetType().IsAssignableFrom(typeof(Gram)))
+            {
+                to.Value = MassFormulas.ConvertOuncesToKilograms(from.Value) * 1000;
+                return to.Value;
+            }
+
+            if (to.GetType().IsAssignableFrom(typeof(Kilogram)))
+            {
+                to.Value = MassFormulas.ConvertOuncesToKilograms(from.Value);
+                return to.Value;
+            }
+
+            if (to.GetType().IsAssignableFrom(typeof(Ounce)))
+            {
+                to.Value = from.Value;
+                return to.Value;
+            }
+
+            if (to.GetType().IsAssignableFrom(typeof(Pound)))
+            {
+                to.Value = MassFormulas.ConvertOuncesToPounds(from.Value);
+                return to.Value;
+            }
+
+            if (to.GetType().IsAssignableFrom(typeof(Stone)))
+            {
+                to.Value = MassFormulas.ConvertOuncesToStones(from.Value);
+                return to.Value;
+            }
+
+            throw new InvalidOperationException();
+        }
+
+        private double ConvertMilligrams(IUnit from, IUnit to)
+        {
+            if (to.GetType().IsAssignableFrom(typeof(Milligram)))
+            {
+                to.Value = from.Value;
+                return to.Value;
+            }
+
+            if (to.GetType().IsAssignableFrom(typeof(Gram)))
+            {
+                to.Value = from.Value / 1000;
+                return to.Value;
+            }
+
+            if (to.GetType().IsAssignableFrom(typeof(Kilogram)))
+            {
+                to.Value = from.Value / 1000000;
+                return to.Value;
+            }
+
+            if (to.GetType().IsAssignableFrom(typeof(Ounce)))
+            {
+                to.Value = MassFormulas.ConvertKilogramsToOunces(from.Value / 1000000);
+                return to.Value;
+            }
+
+            if (to.GetType().IsAssignableFrom(typeof(Pound)))
+            {
+                to.Value = MassFormulas.ConvertKilogramsToPounds(from.Value / 1000000);
+                return to.Value;
+            }
+
+            if (to.GetType().IsAssignableFrom(typeof(Stone)))
+            {
+                to.Value = MassFormulas.ConvertKilogramsToStones(from.Value / 1000000);
             }
 
             throw new InvalidOperationException();
@@ -27,39 +110,51 @@ namespace UnitsOfMeasurement.Calculators
         {
             if (to.GetType().IsAssignableFrom(typeof(Kilogram)))
             {
-                to.Value = to.Value / 1000;
+                to.Value = from.Value / 1000;
                 return to.Value;
             }
 
             if (to.GetType().IsAssignableFrom(typeof(Milligram)))
             {
-                to.Value = to.Value * 1000;
+                to.Value = from.Value * 1000;
                 return to.Value;
             }
 
             if (to.GetType().IsAssignableFrom(typeof(Ounce)))
             {
-                to.Value = to.Value / 28.35;
+                to.Value = MassFormulas.ConvertKilogramsToOunces(from.Value / 1000);
                 return to.Value;
             }
 
             if (to.GetType().IsAssignableFrom(typeof(Pound)))
             {
-                to.Value = to.Value / 453.5923703803783;
+                to.Value = MassFormulas.ConvertKilogramsToPounds(from.Value / 1000);
                 return to.Value;
             }
 
             if (to.GetType().IsAssignableFrom(typeof(Stone)))
             {
-                to.Value = to.Value / 6350.293196847074;
+                to.Value = MassFormulas.ConvertKilogramsToStones(from.Value / 1000);
                 return to.Value;
             }
-            throw new InvalidOperationException();
 
+            if (to.GetType().IsAssignableFrom(typeof(Gram)))
+            {
+                to.Value = from.Value;
+                return to.Value;
+            }
+
+            throw new InvalidOperationException();
         }
 
         private double ConvertKilograms(IUnit from, IUnit to)
         {
+            if (to.GetType().IsAssignableFrom(typeof(Kilogram)))
+            {
+                to.Value = from.Value;
+                return to.Value;
+            }
+
             if (to.GetType().IsAssignableFrom(typeof(Pound)))
             {
                 to.Value = MassFormulas.ConvertKilogramsToPounds(from.Value);

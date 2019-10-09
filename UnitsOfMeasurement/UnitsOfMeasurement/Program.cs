@@ -156,7 +156,7 @@ namespace UnitsOfMeasurement
             }
 
             var result = calculator.Calculate(from, to);
-            Console.WriteLine($"Well, {from.Value} {from.Name.ToLower()}(s) is equal to {result} {to.Name.ToLower()}(s).");
+            Console.WriteLine($"Well, {from.Value} {from.Name}(s) is equal to {result} {to.Name}(s).");
         }
 
         private static void TemperatureConverter()
@@ -239,7 +239,7 @@ namespace UnitsOfMeasurement
             }
 
             var result = calculator.Calculate(from, to);
-            Console.WriteLine($"Well, {from.Value} degrees Celsius is equal to {result} degrees {to.Name}.");
+            Console.WriteLine($"Well, {from.Value} degrees {from.Name} is equal to {result} degrees {to.Name}.");
         }
     }
 }
